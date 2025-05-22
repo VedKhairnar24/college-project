@@ -36,28 +36,28 @@ const events = [
 
 const Events = () => {
   return (
-    <section id="events" className="py-16 bg-white">
+    <section id="events" className="py-12 md:py-16 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="section-title">Upcoming Events</h2>
+        <h2 className="section-title text-2xl md:text-3xl lg:text-4xl">Upcoming Events</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-6 md:mt-8">
           {events.map((event) => (
             <Card key={event.id} className="h-full transition-all duration-200 hover:shadow-lg border-t-4 border-t-institute-blue">
-              <CardHeader className="pb-3">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                  <Calendar className="h-4 w-4" />
+              <CardHeader className="pb-2 md:pb-3">
+                <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground mb-1 md:mb-2">
+                  <Calendar className="h-3 w-3 md:h-4 md:w-4" />
                   <span>{event.date}</span>
                 </div>
-                <CardTitle className="text-institute-blue text-lg">{event.title}</CardTitle>
-                <CardDescription className="text-sm text-gray-500">
+                <CardTitle className="text-institute-blue text-base md:text-lg">{event.title}</CardTitle>
+                <CardDescription className="text-xs md:text-sm text-gray-500">
                   {event.location}
                 </CardDescription>
               </CardHeader>
-              <CardContent className="pb-3">
-                <p className="text-sm">{event.description}</p>
+              <CardContent className="pb-2 md:pb-3">
+                <p className="text-xs md:text-sm">{event.description}</p>
               </CardContent>
               <CardFooter>
-                <Button variant="outline" size="sm" className="w-full border-institute-blue text-institute-blue hover:bg-institute-blue hover:text-white">
+                <Button variant="outline" size="sm" className="w-full border-institute-blue text-institute-blue hover:bg-institute-blue hover:text-white text-xs md:text-sm">
                   View Details
                 </Button>
               </CardFooter>
@@ -65,8 +65,8 @@ const Events = () => {
           ))}
         </div>
         
-        <div className="mt-10 text-center">
-          <Button className="bg-institute-blue hover:bg-institute-gold">
+        <div className="mt-8 md:mt-10 text-center">
+          <Button className="bg-institute-blue hover:bg-institute-gold text-sm md:text-base">
             View All Events
           </Button>
         </div>

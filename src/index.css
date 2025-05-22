@@ -82,11 +82,21 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-poppins font-semibold;
   }
+
+  /* Improve text readability on small devices */
+  p, span, a {
+    @apply text-sm md:text-base;
+  }
+
+  /* Make buttons easier to tap on mobile */
+  button, a.button, input[type="submit"] {
+    @apply min-h-10 px-4;
+  }
 }
 
 @layer components {
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-institute-blue text-center mb-8;
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold text-institute-blue text-center mb-4 md:mb-8;
   }
 
   .link-hover {
@@ -98,6 +108,20 @@
   }
 
   .primary-button {
-    @apply bg-institute-blue text-white py-2 px-6 rounded-md hover:bg-institute-gold transition-colors duration-200;
+    @apply bg-institute-blue text-white py-2 px-4 md:px-6 rounded-md hover:bg-institute-gold transition-colors duration-200 text-sm md:text-base;
+  }
+
+  /* Responsive container padding */
+  .container {
+    @apply px-4 md:px-6 lg:px-8;
+  }
+
+  /* Responsive spacing utilities */
+  .section-padding {
+    @apply py-8 md:py-12 lg:py-16;
+  }
+
+  .section-margin {
+    @apply my-8 md:my-12 lg:my-16;
   }
 }
