@@ -1,11 +1,28 @@
 
 import { useState, useEffect } from 'react';
-import { Facebook, Twitter, Linkedin, Menu, X } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, Menu, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger
+} from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import { Separator } from '@/components/ui/separator';
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdowns, setActiveDropdowns] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +42,162 @@ const Header = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
+  const toggleMobileDropdown = (key: string) => {
+    setActiveDropdowns(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
+
+  // Navigation content organized by dropdown
+  const navigationData = {
+    about: {
+      title: "About",
+      items: [
+        { label: "Principal's Message", href: "#principal" },
+        { label: "Secretary's Message", href: "#secretary" },
+        { label: "Governance", href: "#governance" }
+      ]
+    },
+    department: {
+      title: "Department",
+      items: [
+        { label: "First Year Department", href: "#first-year" },
+        { label: "Civil Engineering Department", href: "#civil" },
+        { label: "Mechanical Engineering Department", href: "#mechanical" },
+        { label: "Computer Science Department", href: "#cs" },
+        { label: "AIML", href: "#aiml" }
+      ]
+    },
+    facilities: {
+      title: "Facilities",
+      items: [
+        { label: "Central Library", href: "#library" },
+        { label: "Central Workshop", href: "#workshop" },
+        { label: "Computer Center", href: "#computer-center" },
+        { label: "Central Canteen", href: "#canteen" },
+        { label: "Hostel", href: "#hostel" },
+        { label: "Transportation", href: "#transportation" }
+      ]
+    },
+    cells: {
+      title: "College Cells",
+      items: [
+        { label: "Anti-Ragging Cell", href: "#anti-ragging" },
+        { label: "Grievance Redressal Cell", href: "#grievance" },
+        { label: "Women Grievance Cell", href: "#women-grievance" },
+        { label: "Internal Complaint Cell", href: "#complaint" },
+        { label: "SC/ST Cell", href: "#scst" },
+        { label: "Online Grievance Form", href: "#grievance-form" },
+        { label: "BC", href: "#bc" },
+        { label: "IC", href: "#ic" }
+      ]
+    },
+    naac: {
+      title: "NAAC",
+      items: [
+        { label: "IQAC", href: "#iqac" },
+        { label: "SSR", href: "#ssr" },
+        { label: "NAAC Peer Visit", href: "#peer-visit" },
+        { label: "IIQA", href: "#iiqa" },
+        { label: "DWV", href: "#dwv" }
+      ]
+    },
+    downloads: {
+      title: "Downloads",
+      items: [
+        { label: "Academic Calendar", href: "#calendar" },
+        { label: "AQAR", href: "#aqar" },
+        { label: "EOAS", href: "#eoas" },
+        { label: "Project List", href: "#projects" },
+        { label: "Best Practices", href: "#practices" },
+        { label: "Distinctiveness", href: "#distinctiveness" }
+      ]
+    }
+  };
+
+  // Simple menu items that don't have dropdowns
+  const simpleMenuItems = [
+    { label: "Home", href: "#" },
+    { label: "Admission", href: "#admission" },
+    { label: "Gallery", href: "#gallery" },
+    { label: "T & P Cell", href: "#tnp" },
+    { label: "NIRF", href: "#nirf" },
+    { label: "Alumni", href: "#alumni" },
+    { label: "Contact", href: "#contact" }
+  ];
+
+  // Navigation menu content for desktop
+  const renderDesktopNavItem = (key: string, data: typeof navigationData.about) => (
+    <NavigationMenuItem key={key}>
+      <NavigationMenuTrigger className="bg-transparent hover:bg-transparent hover:text-institute-gold text-institute-blue font-medium text-sm xl:text-base">
+        {data.title}
+      </NavigationMenuTrigger>
+      <NavigationMenuContent className="bg-white rounded-md shadow-md p-2 min-w-[200px]">
+        <ul className="grid gap-1">
+          {data.items.map((item, index) => (
+            <li key={`${key}-${index}`}>
+              <NavigationMenuLink asChild>
+                <a
+                  href={item.href}
+                  className="block px-4 py-2 text-sm rounded-md hover:bg-[#E0F2FE] hover:text-institute-gold transition-colors duration-200"
+                >
+                  {item.label}
+                </a>
+              </NavigationMenuLink>
+              {index < data.items.length - 1 && <Separator className="my-1" />}
+            </li>
+          ))}
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  );
+
+  // Simple menu item for desktop
+  const renderDesktopSimpleItem = (item: { label: string, href: string }, index: number) => (
+    <NavigationMenuItem key={`simple-${index}`}>
+      <NavigationMenuLink asChild>
+        <a href={item.href} className="font-medium text-institute-blue hover:text-institute-gold transition-colors duration-200 text-sm xl:text-base">
+          {item.label}
+        </a>
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+  );
+
+  // Dropdown menu for mobile
+  const renderMobileDropdown = (key: string, data: typeof navigationData.about) => (
+    <li key={key} className="border-b border-gray-100">
+      <button
+        className="flex justify-between items-center w-full py-2 text-institute-blue"
+        onClick={() => toggleMobileDropdown(key)}
+        aria-expanded={activeDropdowns[key]}
+      >
+        {data.title}
+        <ChevronDown
+          size={16}
+          className={cn(
+            "transition-transform duration-200",
+            activeDropdowns[key] ? "rotate-180" : ""
+          )}
+        />
+      </button>
+      {activeDropdowns[key] && (
+        <ul className="pl-4 py-1 space-y-1 bg-gray-50 rounded-md mb-2">
+          {data.items.map((item, idx) => (
+            <li key={`mobile-${key}-${idx}`}>
+              <a
+                href={item.href}
+                className="block py-1.5 text-sm text-institute-blue hover:text-institute-gold transition-colors"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
 
   return (
     <header className="relative">
@@ -97,22 +270,28 @@ const Header = () => {
             </div>
           )}
 
-          {/* Desktop Navigation */}
-          <ul className="hidden lg:flex space-x-3 xl:space-x-6 text-sm xl:text-base">
-            <li><a href="#" className="font-medium text-institute-blue link-hover">Home</a></li>
-            <li><a href="#about" className="font-medium text-institute-blue link-hover">About</a></li>
-            <li><a href="#" className="font-medium text-institute-blue link-hover">Admission</a></li>
-            <li><a href="#" className="font-medium text-institute-blue link-hover">Department</a></li>
-            <li><a href="#facilities" className="font-medium text-institute-blue link-hover">Facilities</a></li>
-            <li><a href="#" className="font-medium text-institute-blue link-hover">College Cells</a></li>
-            <li><a href="#" className="font-medium text-institute-blue link-hover">NAAC</a></li>
-            <li><a href="#" className="font-medium text-institute-blue link-hover">Gallery</a></li>
-            <li><a href="#tnp" className="font-medium text-institute-blue link-hover">T & P Cell</a></li>
-            <li><a href="#" className="font-medium text-institute-blue link-hover">Downloads</a></li>
-            <li><a href="#" className="font-medium text-institute-blue link-hover">NIRF</a></li>
-            <li><a href="#" className="font-medium text-institute-blue link-hover">Alumni</a></li>
-            <li><a href="#contact" className="font-medium text-institute-blue link-hover">Contact</a></li>
-          </ul>
+          {/* Desktop Navigation with dropdown menus */}
+          <NavigationMenu className="hidden lg:flex">
+            <NavigationMenuList className="space-x-3 xl:space-x-5">
+              {/* Simple menu items */}
+              {simpleMenuItems.slice(0, 2).map(renderDesktopSimpleItem)}
+
+              {/* Dropdown menu items */}
+              {renderDesktopNavItem("about", navigationData.about)}
+              {renderDesktopNavItem("department", navigationData.department)}
+              {renderDesktopNavItem("facilities", navigationData.facilities)}
+              {renderDesktopNavItem("cells", navigationData.cells)}
+              {renderDesktopNavItem("naac", navigationData.naac)}
+              
+              {/* Rest of simple menu items */}
+              {simpleMenuItems.slice(2, 5).map(renderDesktopSimpleItem)}
+              
+              {renderDesktopNavItem("downloads", navigationData.downloads)}
+              
+              {/* Last simple menu items */}
+              {simpleMenuItems.slice(5).map(renderDesktopSimpleItem)}
+            </NavigationMenuList>
+          </NavigationMenu>
 
           {/* Mobile Menu Button */}
           <button 
@@ -128,19 +307,41 @@ const Header = () => {
         {mobileMenuOpen && (
           <div className="lg:hidden bg-white border-t mt-1 sm:mt-2">
             <ul className="container mx-auto flex flex-col space-y-1 sm:space-y-2 p-2 sm:p-4 text-sm">
-              <li><a href="#" className="block py-1 sm:py-2 text-institute-blue link-hover">Home</a></li>
-              <li><a href="#about" className="block py-1 sm:py-2 text-institute-blue link-hover">About</a></li>
-              <li><a href="#" className="block py-1 sm:py-2 text-institute-blue link-hover">Admission</a></li>
-              <li><a href="#" className="block py-1 sm:py-2 text-institute-blue link-hover">Department</a></li>
-              <li><a href="#facilities" className="block py-1 sm:py-2 text-institute-blue link-hover">Facilities</a></li>
-              <li><a href="#" className="block py-1 sm:py-2 text-institute-blue link-hover">College Cells</a></li>
-              <li><a href="#" className="block py-1 sm:py-2 text-institute-blue link-hover">NAAC</a></li>
-              <li><a href="#" className="block py-1 sm:py-2 text-institute-blue link-hover">Gallery</a></li>
-              <li><a href="#tnp" className="block py-1 sm:py-2 text-institute-blue link-hover">T & P Cell</a></li>
-              <li><a href="#" className="block py-1 sm:py-2 text-institute-blue link-hover">Downloads</a></li>
-              <li><a href="#" className="block py-1 sm:py-2 text-institute-blue link-hover">NIRF</a></li>
-              <li><a href="#" className="block py-1 sm:py-2 text-institute-blue link-hover">Alumni</a></li>
-              <li><a href="#contact" className="block py-1 sm:py-2 text-institute-blue link-hover">Contact</a></li>
+              {/* Simple menu items */}
+              {simpleMenuItems.slice(0, 2).map((item, idx) => (
+                <li key={`mobile-simple-${idx}`}>
+                  <a href={item.href} className="block py-2 text-institute-blue hover:text-institute-gold">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+
+              {/* Dropdown menu items */}
+              {renderMobileDropdown("about", navigationData.about)}
+              {renderMobileDropdown("department", navigationData.department)}
+              {renderMobileDropdown("facilities", navigationData.facilities)}
+              {renderMobileDropdown("cells", navigationData.cells)}
+              {renderMobileDropdown("naac", navigationData.naac)}
+              
+              {/* Rest of simple menu items */}
+              {simpleMenuItems.slice(2, 5).map((item, idx) => (
+                <li key={`mobile-simple-mid-${idx}`}>
+                  <a href={item.href} className="block py-2 text-institute-blue hover:text-institute-gold">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              
+              {renderMobileDropdown("downloads", navigationData.downloads)}
+              
+              {/* Last simple menu items */}
+              {simpleMenuItems.slice(5).map((item, idx) => (
+                <li key={`mobile-simple-end-${idx}`}>
+                  <a href={item.href} className="block py-2 text-institute-blue hover:text-institute-gold">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         )}
