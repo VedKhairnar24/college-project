@@ -85,18 +85,29 @@
 
   /* Improve text readability on small devices */
   p, span, a {
-    @apply text-sm md:text-base;
+    @apply text-xs sm:text-sm md:text-base;
   }
 
   /* Make buttons easier to tap on mobile */
   button, a.button, input[type="submit"] {
-    @apply min-h-10 px-4;
+    @apply min-h-8 sm:min-h-9 md:min-h-10 px-2 sm:px-3 md:px-4;
+  }
+  
+  /* Extra small screens */
+  @media (min-width: 475px) {
+    .xs\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .xs\:text-\[10px\] {
+      font-size: 10px;
+    }
   }
 }
 
 @layer components {
   .section-title {
-    @apply text-2xl md:text-3xl lg:text-4xl font-bold text-institute-blue text-center mb-4 md:mb-8;
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-institute-blue text-center mb-3 sm:mb-5 md:mb-8;
   }
 
   .link-hover {
@@ -108,20 +119,20 @@
   }
 
   .primary-button {
-    @apply bg-institute-blue text-white py-2 px-4 md:px-6 rounded-md hover:bg-institute-gold transition-colors duration-200 text-sm md:text-base;
+    @apply bg-institute-blue text-white py-1.5 sm:py-2 px-3 sm:px-4 md:px-6 rounded hover:bg-institute-gold transition-colors duration-200 text-xs sm:text-sm md:text-base;
   }
 
   /* Responsive container padding */
   .container {
-    @apply px-4 md:px-6 lg:px-8;
+    @apply px-3 sm:px-4 md:px-6 lg:px-8;
   }
 
   /* Responsive spacing utilities */
   .section-padding {
-    @apply py-8 md:py-12 lg:py-16;
+    @apply py-6 sm:py-8 md:py-12 lg:py-16;
   }
 
   .section-margin {
-    @apply my-8 md:my-12 lg:my-16;
+    @apply my-6 sm:my-8 md:my-12 lg:my-16;
   }
 }

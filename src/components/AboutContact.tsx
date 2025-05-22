@@ -1,22 +1,22 @@
 
 const AboutContact = () => {
   return (
-    <section id="about" className="py-16 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <section id="about" className="py-10 sm:py-12 md:py-14 lg:py-16 bg-white">
+      <div className="container mx-auto px-3 sm:px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
           {/* Left Column - About & Map */}
           <div>
-            <h2 className="text-2xl font-bold text-institute-blue mb-6">About us</h2>
-            <div className="mb-6">
-              <h3 className="text-xl font-medium text-institute-blue mb-2">Hi-Tech Institute of Technology</h3>
-              <p className="text-gray-700">
+            <h2 className="text-xl sm:text-2xl font-bold text-institute-blue mb-4 sm:mb-6">About us</h2>
+            <div className="mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-medium text-institute-blue mb-2">Hi-Tech Institute of Technology</h3>
+              <p className="text-gray-700 text-xs sm:text-sm md:text-base">
                 P-119, Bajajnagar, MIDC Waluj, Aurangabad, Maharashtra, India - 431136<br />
                 ☎ (0240) 2552240, 2553494, 2553496
               </p>
             </div>
             
             {/* Google Map */}
-            <div className="h-[300px] bg-gray-200 rounded-lg overflow-hidden">
+            <div className="h-[200px] sm:h-[250px] md:h-[300px] bg-gray-200 rounded-lg overflow-hidden">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3752.2123178247186!2d75.2004893!3d19.8621602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDUxJzQzLjgiTiA3NcKwMTInMDEuNiJF!5e0!3m2!1sen!2sin!4v1622018752072!5m2!1sen!2sin"
                 width="100%"
@@ -30,11 +30,11 @@ const AboutContact = () => {
           </div>
           
           {/* Right Column - Quick Links & College Cells */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Quick Links */}
             <div>
-              <h3 className="text-xl font-bold text-institute-blue mb-4">QUICK LINKS</h3>
-              <ul className="space-y-2">
+              <h3 className="text-lg sm:text-xl font-bold text-institute-blue mb-3 sm:mb-4">QUICK LINKS</h3>
+              <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm md:text-base">
                 <li><a href="#" className="text-institute-blue hover:text-institute-gold transition-colors">AICTE</a></li>
                 <li><a href="#" className="text-institute-blue hover:text-institute-gold transition-colors">DTE</a></li>
                 <li><a href="#" className="text-institute-blue hover:text-institute-gold transition-colors">Fees Regulating Authority</a></li>
@@ -54,8 +54,8 @@ const AboutContact = () => {
             
             {/* College Cells */}
             <div>
-              <h3 className="text-xl font-bold text-institute-blue mb-4">COLLEGE CELLS</h3>
-              <ul className="space-y-2">
+              <h3 className="text-lg sm:text-xl font-bold text-institute-blue mb-3 sm:mb-4">COLLEGE CELLS</h3>
+              <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm md:text-base">
                 <li><a href="#" className="text-institute-blue hover:text-institute-gold transition-colors">Women Grievance Cell</a></li>
                 <li><a href="#" className="text-institute-blue hover:text-institute-gold transition-colors">Grievance Cell</a></li>
               </ul>
