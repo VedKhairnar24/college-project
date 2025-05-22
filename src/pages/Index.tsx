@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import PrincipalMessage from '@/components/PrincipalMessage';
 import CollegeFeatures from '@/components/CollegeFeatures';
 import Courses from '@/components/Courses';
+import Events from '@/components/Events';
 import Partners from '@/components/Partners';
 import AboutContact from '@/components/AboutContact';
 import Footer from '@/components/Footer';
@@ -16,6 +17,7 @@ const Index = () => {
         <PrincipalMessage />
         <CollegeFeatures />
         <Courses />
+        <Events />
         <Partners />
         <AboutContact />
       </main>
